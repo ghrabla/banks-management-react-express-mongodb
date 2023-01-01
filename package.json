@@ -1,0 +1,24 @@
+{
+  "name": "banks-management-react-express-mongodb",
+  "version": "1.0.0",
+  "description": "banks management project with mern stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghrabla/banks-management-react-express-mongodb.git"
+  },
+  "author": "kamal ghrabla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ghrabla/banks-management-react-express-mongodb/issues"
+  },
+  "homepage": "https://github.com/ghrabla/banks-management-react-express-mongodb#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.2"
+  }
+}
