@@ -7,6 +7,7 @@ import Register from './pages/register'
 import Home from './pages/home'
 import Users from './pages/users'
 import Account from './pages/account'
+import Loginadmin from './pages/loginadmin'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Route path='register' element={<Register/>}/>
       <Route path='users' element={<Users/>}/>
       <Route path='account' element={<Account/>}/>
+      <Route path='admin/login' element={<Loginadmin/>}/>
       </Routes>
       <Footer/>
     </div>
