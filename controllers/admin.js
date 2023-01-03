@@ -26,13 +26,11 @@ module.exports = class admin {
   }
   static async apiCheckadmin(req, res, next) { 
     try { 
-      // let email = req.body.email || {};
-      // let password = req.body.password || {};
       const admin = await adminService.adminlogin(req.body);
       const validPassword = await bcrypt.compare(req.body.password, admin[0].password);
       if (validPassword) {
         res.status(200).json(
-    admin[0],
+        admin[0],
         //  token: await adminService.generateToken(admin[0]._id),
         );
       } else {
@@ -46,12 +44,12 @@ module.exports = class admin {
 
   static async apiCreateadmin(req, res, next) {
     try {
-      console.log(req.body);
       if (!req.body) return next(new AppError("No form data found", 404));
       const createdadmin =  await adminService.createadmin(req.body);
+      const thetoken = await adminService.generateToken(createdadmin._id)
       res.json({
-        admin: createdadmin,
-        token: await adminService.generateToken(createdadmin._id)
+          admin: createdadmin, 
+          token: thetoken
       });
     } catch (error) {
       res.status(500).json({ error: error });
