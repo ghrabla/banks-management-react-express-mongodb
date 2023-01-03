@@ -9,7 +9,6 @@ const Contact = ()=>{
         <h2 class="text-3xl font-bold mb-12 px-6">Contact us</h2>
       </div>
     </div>
-
     <div class="flex flex-wrap">
       <div class="grow-0 shrink-0 basis-auto mb-12 lg:mb-0 w-full lg:w-5/12 px-3 lg:px-6">
         <form>
