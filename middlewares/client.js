@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const Admin = require('../models/admin')
+const Client = require('../models/client')
 
-const protectadmin = async (req, res, next) => {
+const protectclient = async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -12,10 +12,10 @@ const protectadmin = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1]
 
       // Verify token
-      const decoded = jwt.verify(token, process.env.SECRETADMIN)
+      const decoded = jwt.verify(token, process.env.SECRETCLIENT)
 
       // Get user from the token
-      req.admin = await Admin.findById(decoded.id)
+      req.client = await Client.findById(decoded.id)
 
       next()
     } catch (error) {
@@ -31,4 +31,4 @@ const protectadmin = async (req, res, next) => {
   }
 }
 
-module.exports = { protectadmin }
+module.exports = { protectclient }
