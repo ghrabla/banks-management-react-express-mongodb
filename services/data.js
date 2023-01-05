@@ -51,7 +51,7 @@ module.exports = class dataService{
                     id_client: datas.id_client
                 }
                 const updateResponse =  await data.findByIdAndUpdate({_id: id},newdata);
-                    return updateResponse;
+                return newdata;
             } catch (error) {
                 console.log(`Could not update data ${error}` );
 
