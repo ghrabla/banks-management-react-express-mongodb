@@ -3,8 +3,8 @@ const AppError = require("../helpers/appError");
 module.exports = class data {
   static async apiGetAlldata(req, res, next) {
     try {
-      const data = await dataService.getAlldata(); 
-      if (!datas) {
+      const data = await dataService.getAlldata();
+      if (!data) {
         res.status(404).json({message: "There are no data found yet!"});
       }else{
         res.json(data);

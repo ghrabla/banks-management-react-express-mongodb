@@ -3,24 +3,24 @@ const data = require("../models/data");
 module.exports = class dataService{
     static async getAlldata(){
         try {
-            const alldatas = await data.find(); 
+            const alldatas = await data.find().populate("id_client"); 
             return alldatas;
         } catch (error) {
             console.log(`Could not fetch datas ${error}`)
         }
     } 
 
-    static async createdata(data){
+    static async createdata(datas){
         try {
             const newdata = {
-                cin: data.cin,  
-                phone: data.phone,
-                country: data.country,
-                city: data.city,
-                adresse: data.adresse,
-                born_date: data.born_date,
-                image: data.image,
-                id_client: data.id_client
+                cin: datas.cin,  
+                phone: datas.phone,
+                country: datas.country,
+                city: datas.city,
+                adresse: datas.adresse,
+                born_date: datas.born_date,
+                image: datas.image,
+                id_client: datas.id_client
             }
            const response = await new data(newdata).save();
            return response;
@@ -38,17 +38,17 @@ module.exports = class dataService{
         }
     }
 
-    static async updatedata(id,data){
+    static async updatedata(id,datas){
             try {
                 const newdata = {
-                    cin: data.cin,  
-                    phone: data.phone,
-                    country: data.country,
-                    city: data.city,
-                    adresse: data.adresse,
-                    born_date: data.born_date,
-                    image: data.image,
-                    id_client: data.id_client
+                    cin: datas.cin,  
+                    phone: datas.phone,
+                    country: datas.country,
+                    city: datas.city,
+                    adresse: datas.adresse,
+                    born_date: datas.born_date,
+                    image: datas.image,
+                    id_client: datas.id_client
                 }
                 const updateResponse =  await data.findByIdAndUpdate({_id: id},newdata);
                     return updateResponse;
