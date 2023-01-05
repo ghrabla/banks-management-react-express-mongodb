@@ -1,6 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout, reset } from '../services/authclient/authSlice'
 
 const Navbar = ()=>{
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { client } = useSelector((state) => state.authclient)
+
+  const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
+
     return(
         <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -14,25 +27,33 @@ const Navbar = ()=>{
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
     <div class="text-sm lg:flex-grow">
       <Link to="/">
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+      <a href="javascript:void(0)" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
         Home
       </a>
       </Link>
       <Link to="/account">
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+      <a href="javascript:void(0)" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
         Account
       </a>
       </Link>
-      <Link to="/register">
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+      {client ?(
+      <a onClick={onLogout} href="javascript:void(0)" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+        logout
+      </a>
+      ):(
+      <>
+        <Link to="/register">
+      <a href="javascript:void(0)" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
         Register
       </a>
       </Link>
       <Link to="/login">
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+      <a href="javascript:void(0)" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white" >
         Login
       </a>
       </Link>
+      </>
+      )}
     </div>
     <div>
       <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">get started</a>

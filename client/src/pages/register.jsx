@@ -1,4 +1,60 @@
+import { useState,useEffect } from "react"
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { register, reset } from '../services/authclient/authSlice'
+
 const Register = ()=>{
+
+  const [formData, setFormData] = useState({
+    fullname: '',
+    email: '',
+    password: ''
+  })
+
+  const { fullname, email, password } = formData
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { client, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.authclient
+  )
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    if (isSuccess || client) {
+      navigate('/')
+    }
+
+    dispatch(reset())
+  }, [client, isError, isSuccess, message, navigate, dispatch])
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+  const onSubmit = (e) =>{
+      e.preventDefault()
+      if (password == '') {
+        toast.error('Passwords is required')
+      } else {
+        const clientData = {
+          fullname,
+          email,
+          password,
+        }
+  
+        dispatch(register(clientData))
+        navigate('/')
+      }
+  }
+
     return(
         <section class="">
         <div class="container px-6 py-12 h-full">

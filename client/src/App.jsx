@@ -1,4 +1,5 @@
 import './App.css'
+import { ToastContainer } from 'react-toastify';
 import Footer from './components/footer'
 import Navbar from './components/navbar'
 import Login from './pages/login'
@@ -23,6 +24,7 @@ function App() {
       <Route path='account' element={<Account/>}/>
       <Route path='admin/login' element={<Loginadmin/>}/>
       </Routes>
+      <ToastContainer/>
       <Footer/>
     </div>
   )

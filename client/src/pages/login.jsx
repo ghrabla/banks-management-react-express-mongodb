@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login, reset } from "../services/authclient/authSlice";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -22,8 +24,10 @@ const Login = () => {
       toast.error(message);
     }
 
-    if (isSuccess || client) {
+    if (isSuccess) {
       navigate("/");
+      const notify = () => toast("your login is correct!");
+      notify();
     }
 
     dispatch(reset());
