@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:8090/client/'
+const API_URL = 'http://localhost:5050/client/'
 
 // Register client
 const register = async (clientData) => {
