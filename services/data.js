@@ -38,7 +38,7 @@ module.exports = class dataService{
         }
     }
 
-    static async updatedata(data){
+    static async updatedata(id,data){
             try {
                 const newdata = {
                     cin: data.cin,  
@@ -50,7 +50,7 @@ module.exports = class dataService{
                     image: data.image,
                     id_client: data.id_client
                 }
-                const updateResponse =  await data.findByIdAndUpdate({_id: data._id},newdata);
+                const updateResponse =  await data.findByIdAndUpdate({_id: id},newdata);
                     return updateResponse;
             } catch (error) {
                 console.log(`Could not update data ${error}` );
