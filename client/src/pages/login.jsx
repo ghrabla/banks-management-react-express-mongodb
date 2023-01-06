@@ -1,12 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login, reset } from "../services/authclient/authSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ReCAPTCHA } from 'react-google-recaptcha-v3';
+
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  function onVerify(token) {
+    grecaptcha.ready(function() {
+      grecaptcha.execute('your-site-key-here', {action: 'login'}).then(function(response) {
+        // Verify the response on the client side
+        if (response === token) {
+          // The ReCAPTCHA response is valid
+          // You can now log the user in
+          console.log("good");
+        } else {
+          // The ReCAPTCHA response is invalid
+          // Show an error message or do something else
+          console.log("bad");
+        }
+      });
+    });
+  }
+
+
+
+   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
@@ -21,15 +42,14 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
-    }
-
-    if (isSuccess) {
-      navigate("/");
-      const notify = () => toast("your login is correct!");
+      const notify = () => toast("your login is not correct!");
       notify();
     }
-
+    if (isSuccess) {
+      navigate("/");
+      const notify = () => toast.success("your login is correct!");
+      notify();
+    }
     dispatch(reset());
   }, [client, isError, isSuccess, message, navigate, dispatch]);
 
@@ -42,7 +62,6 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     const clientData = {
       email,
       password,
@@ -64,6 +83,7 @@ const Login = () => {
           </div>
           <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
             <form onSubmit={onSubmit}>
+            <ReCAPTCHA onVerify={onVerify} />
               <div class="mb-6">
                 <input
                   type="text"
@@ -86,6 +106,7 @@ const Login = () => {
                   onChange={onChange}
                 />
               </div>
+              <ReCAPTCHA siteKey="your-site-key-here" />
 
               <div class="flex justify-between items-center mb-6">
                 <a
@@ -104,7 +125,6 @@ const Login = () => {
               >
                 Sign in
               </button>
-
               <div class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                 <p class="text-center font-semibold mx-4 mb-0">OR</p>
               </div>
