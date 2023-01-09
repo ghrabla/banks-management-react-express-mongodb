@@ -38,7 +38,7 @@ module.exports = class client {
       }
       //  res.json();
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error: "invalid email" });
     }
   }
 

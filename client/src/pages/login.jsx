@@ -4,29 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { login, reset } from "../services/authclient/authSlice";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ReCAPTCHA } from 'react-google-recaptcha-v3';
 
 
 const Login = () => {
-  function onVerify(token) {
-    grecaptcha.ready(function() {
-      grecaptcha.execute('your-site-key-here', {action: 'login'}).then(function(response) {
-        // Verify the response on the client side
-        if (response === token) {
-          // The ReCAPTCHA response is valid
-          // You can now log the user in
-          console.log("good");
-        } else {
-          // The ReCAPTCHA response is invalid
-          // Show an error message or do something else
-          console.log("bad");
-        }
-      });
-    });
-  }
-
-
-
+ 
    const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -66,8 +47,13 @@ const Login = () => {
       email,
       password,
     };
-
-    dispatch(login(clientData));
+     if(clientData.email.trim() === ""){
+      toast.error("email is required");
+     }else if(clientData.password.trim() === ""){
+      toast.error("password is required");
+     }else{
+       dispatch(login(clientData));
+     }
   };
 
   return (
@@ -83,7 +69,6 @@ const Login = () => {
           </div>
           <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
             <form onSubmit={onSubmit}>
-            <ReCAPTCHA onVerify={onVerify} />
               <div class="mb-6">
                 <input
                   type="text"
@@ -106,7 +91,6 @@ const Login = () => {
                   onChange={onChange}
                 />
               </div>
-              <ReCAPTCHA siteKey="your-site-key-here" />
 
               <div class="flex justify-between items-center mb-6">
                 <a
