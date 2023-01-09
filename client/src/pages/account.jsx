@@ -1,41 +1,41 @@
 const Account = () => {
   return (
     <div>
-      <section class="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
+      <section class="max-w-4xl p-6 mx-auto rounded-md shadow-md bg-gray-800 my-10 ">
         <h1 class="text-xl font-bold text-white capitalize dark:text-white">
-          Account settings
+          Account informations
         </h1>
         <form>
           <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
-              <label class="text-white dark:text-gray-200" for="username">
-                Username
+              <label class="text-white dark:text-gray-200" for="CIN">
+                CIN
               </label>
               <input
-                id="username"
+                id="CIN"
                 type="text"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
 
             <div>
-              <label class="text-white dark:text-gray-200" for="emailAddress">
-                Email Address
+              <label class="text-white dark:text-gray-200" for="Phone">
+                Phone
               </label>
               <input
-                id="emailAddress"
-                type="email"
+                id="Phone"
+                type="text"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
 
             <div>
-              <label class="text-white dark:text-gray-200" for="password">
-                Password
+              <label class="text-white dark:text-gray-200" for="Postal">
+                Postal
               </label>
               <input
-                id="password"
-                type="password"
+                id="Postal"
+                type="text"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
@@ -43,35 +43,22 @@ const Account = () => {
             <div>
               <label
                 class="text-white dark:text-gray-200"
-                for="passwordConfirmation"
+                for="adresse"
               >
-                Password Confirmation
+                adresse
               </label>
               <input
-                id="passwordConfirmation"
-                type="password"
+                id="adresse"
+                type="text"
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
             <div>
-              <label
+            <label
                 class="text-white dark:text-gray-200"
-                for="passwordConfirmation"
+                for="country"
               >
-                Color
-              </label>
-              <input
-                id="color"
-                type="color"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              />
-            </div>
-            <div>
-              <label
-                class="text-white dark:text-gray-200"
-                for="passwordConfirmation"
-              >
-                Select
+                Country
               </label>
               <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                 <option>Surabaya</option>
@@ -83,14 +70,25 @@ const Account = () => {
             <div>
               <label
                 class="text-white dark:text-gray-200"
-                for="passwordConfirmation"
+                for="city"
               >
-                Range
+                City
+              </label>
+              <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <option>Surabaya</option>
+                <option>Jakarta</option>
+                <option>Tangerang</option>
+                <option>Bandung</option>
+              </select>
+            </div>
+            <div>
+            <label class="text-white dark:text-gray-200" for="Postal">
+                Solde
               </label>
               <input
-                id="range"
-                type="range"
-                class="block w-full py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                id="Postal"
+                type="text"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
             <div>
@@ -98,7 +96,7 @@ const Account = () => {
                 class="text-white dark:text-gray-200"
                 for="passwordConfirmation"
               >
-                Date
+               Born Date
               </label>
               <input
                 id="date"
@@ -106,20 +104,8 @@ const Account = () => {
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               />
             </div>
-            <div>
-              <label
-                class="text-white dark:text-gray-200"
-                for="passwordConfirmation"
-              >
-                Text Area
-              </label>
-              <textarea
-                id="textarea"
-                type="textarea"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-              ></textarea>
             </div>
-            <div>
+            <div className="mt-6">
               <label class="block text-sm font-medium text-white">Image</label>
               <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                 <div class="space-y-1 text-center">
@@ -140,7 +126,7 @@ const Account = () => {
                   <div class="flex text-sm text-gray-600">
                     <label
                       for="file-upload"
-                      class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                      class="relative cursor-pointer bg-white rounded-md font-medium text-teal-600 hover:text-teal-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                     >
                       <span class="">Upload a file</span>
                       <input
@@ -156,10 +142,10 @@ const Account = () => {
                 </div>
               </div>
             </div>
-          </div>
+          
 
           <div class="flex justify-end mt-6">
-            <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+            <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-teal-500 rounded-md hover:bg-teal-700 focus:outline-none focus:bg-gray-600">
               Save
             </button>
           </div>
