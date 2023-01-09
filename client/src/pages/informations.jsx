@@ -1,11 +1,68 @@
+import axios from "axios";
+import { useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+import countryList from 'country-list';
+import { cities } from "list-of-moroccan-cities";
 const Informations = () => {
+  const [countries,setCountries] = useState(countryList.getNames())
+  const [Cities,setCities] = useState(cities)
+  console.log(Cities);
+  const clientid = useSelector((state)=>state.authclient.client.client._id)
+  const [formData, setFormData] = useState({
+    cin: "",
+    phone: "",
+    country: "",
+    city: "",
+    adresse: "",
+    postal: "",
+    solde: "",
+    born_date: "",
+    image: ""
+  });
+  const { cin,
+  phone,
+  country,
+  city,
+  adresse,
+  postal,
+  solde,
+  born_date,
+  image } = formData;
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(formData)
+  };
+  const onSubmit = async (e)=>{
+    e.preventDefault()
+    const clientInfo = {
+      cin,
+      phone,
+      country,
+      city,
+      adresse,
+      postal,
+      solde,
+      born_date,
+      image,
+      id_client: clientid,
+    }
+  const res = await axios.post("http://localhost:5050/data/create",clientInfo)
+  console.log(res.data);
+  toast.success("your data saved succesfully")
+  }
     return (
       <div>
         <section class="max-w-4xl p-6 mx-auto rounded-md shadow-md bg-gray-800 my-10 ">
           <h1 class="text-xl font-bold text-white capitalize dark:text-white">
             Account informations
           </h1>
-          <form>
+          <form onSubmit={onSubmit}>
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
               <div>
                 <label class="text-white dark:text-gray-200" for="CIN">
@@ -13,6 +70,9 @@ const Informations = () => {
                 </label>
                 <input
                   id="CIN"
+                  name="cin"
+                  value={cin}
+                  onChange={onChange}
                   type="text"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
@@ -24,6 +84,9 @@ const Informations = () => {
                 </label>
                 <input
                   id="Phone"
+                  name="phone"
+                  value={phone}
+                  onChange={onChange}
                   type="text"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
@@ -35,6 +98,9 @@ const Informations = () => {
                 </label>
                 <input
                   id="Postal"
+                  name="postal"
+                  value={postal}
+                  onChange={onChange}
                   type="text"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
@@ -49,6 +115,9 @@ const Informations = () => {
                 </label>
                 <input
                   id="adresse"
+                  name="adresse"
+                  value={adresse}
+                  onChange={onChange}
                   type="text"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
@@ -60,7 +129,11 @@ const Informations = () => {
                 >
                   Country
                 </label>
-                <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                name="country"
+                value={country}
+                onChange={onChange}
+                >
                   <option>Surabaya</option>
                   <option>Jakarta</option>
                   <option>Tangerang</option>
@@ -74,7 +147,10 @@ const Informations = () => {
                 >
                   City
                 </label>
-                <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                name="city"
+                value={city}
+                onChange={onChange}>
                   <option>Surabaya</option>
                   <option>Jakarta</option>
                   <option>Tangerang</option>
@@ -82,11 +158,14 @@ const Informations = () => {
                 </select>
               </div>
               <div>
-              <label class="text-white dark:text-gray-200" for="Postal">
+              <label class="text-white dark:text-gray-200" for="Solde">
                   Solde
                 </label>
                 <input
-                  id="Postal"
+                  id="Solde"
+                  name="solde"
+                  value={solde}
+                  onChange={onChange}
                   type="text"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
@@ -94,12 +173,15 @@ const Informations = () => {
               <div>
                 <label
                   class="text-white dark:text-gray-200"
-                  for="passwordConfirmation"
+                  for="date"
                 >
                  Born Date
                 </label>
                 <input
                   id="date"
+                  name="born_date"
+                  value={born_date}
+                  onChange={onChange}
                   type="date"
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                 />
@@ -131,7 +213,9 @@ const Informations = () => {
                         <span class="">Upload a file</span>
                         <input
                           id="file-upload"
-                          name="file-upload"
+                          name="image"
+                          value={image}
+                          onChange={onChange}
                           type="file"
                           class="sr-only"
                         />
@@ -145,7 +229,7 @@ const Informations = () => {
             
   
             <div class="flex justify-end mt-6">
-              <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-teal-500 rounded-md hover:bg-teal-700 focus:outline-none focus:bg-gray-600">
+              <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-teal-500 rounded-md hover:bg-teal-700 focus:outline-none focus:bg-gray-600" type="submit">
                 Save
               </button>
             </div>
