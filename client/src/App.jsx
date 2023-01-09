@@ -9,6 +9,7 @@ import Home from './pages/home'
 import Users from './pages/users'
 import Account from './pages/account'
 import Loginadmin from './pages/loginadmin'
+import Informations from './pages/informations';
 
 
 function App() {
@@ -20,8 +21,9 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='login' element={<Login/>}/>
       <Route path='register' element={<Register/>}/>
-      <Route path='users' element={<Users/>}/>
+      <Route path='admin/users' element={<Users/>}/>
       <Route path='account' element={<Account/>}/>
+      <Route path='informations' element={<Informations/>}/>
       <Route path='admin/login' element={<Loginadmin/>}/>
       </Routes>
       <ToastContainer/>
