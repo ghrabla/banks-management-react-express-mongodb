@@ -18,6 +18,8 @@ module.exports = class dataService{
                 country: datas.country,
                 city: datas.city,
                 adresse: datas.adresse,
+                postal: datas.postal,
+                solde: datas.solde,
                 born_date: datas.born_date,
                 image: datas.image,
                 id_client: datas.id_client
@@ -46,6 +48,8 @@ module.exports = class dataService{
                     country: datas.country,
                     city: datas.city,
                     adresse: datas.adresse,
+                    postal: datas.postal,
+                    solde: datas.solde,
                     born_date: datas.born_date,
                     image: datas.image,
                     id_client: datas.id_client

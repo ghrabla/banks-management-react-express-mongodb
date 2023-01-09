@@ -23,6 +23,14 @@ const dataSchema = Schema(
       type: String,
       required: true,
     },
+    postal: { 
+      type: String,
+      required: true,
+    },
+    solde: { 
+      type: String,
+      required: true,
+    },
     born_date: {
       type: String,
       required: true,
