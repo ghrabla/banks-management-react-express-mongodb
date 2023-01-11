@@ -8,7 +8,8 @@ import { cities } from "list-of-moroccan-cities";
 const Informations = () => {
   const [countries,setCountries] = useState(countryList.getNames())
   const [Cities,setCities] = useState(cities)
-  console.log(Cities);
+  const [file, setFile] = useState('');
+  const [filename, setFilename] = useState('Choose file');
   const clientid = useSelector((state)=>state.authclient.client.client._id)
   const [formData, setFormData] = useState({
     cin: "",
@@ -18,8 +19,7 @@ const Informations = () => {
     adresse: "",
     postal: "",
     solde: "",
-    born_date: "",
-    image: ""
+    born_date: ""
   });
   const { cin,
   phone,
@@ -28,8 +28,7 @@ const Informations = () => {
   adresse,
   postal,
   solde,
-  born_date,
-  image } = formData;
+  born_date} = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -38,6 +37,24 @@ const Informations = () => {
     }));
     console.log(formData)
   };
+
+  const onChangeimg = e => {
+    setFile(e.target.files[0]);
+    setFilename(e.target.files[0].name);
+    setTimeout(uploadeimage(),1000)
+    };
+
+  const uploadeimage = async ()=>{
+    const formData = new FormData();
+    formData.append('file', file);
+
+      const res = await axios.post('http://localhost:5050/data/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
+  }
+
   const onSubmit = async (e)=>{
     e.preventDefault()
     const clientInfo = {
@@ -49,13 +66,14 @@ const Informations = () => {
       postal,
       solde,
       born_date,
-      image,
+      image: filename,
       id_client: clientid,
     }
   const res = await axios.post("http://localhost:5050/data/create",clientInfo)
-  console.log(res.data);
-  toast.success("your data saved succesfully")
+  toast.success("your data saved succesfully") 
+
   }
+  
     return (
       <div>
         <section class="max-w-4xl p-6 mx-auto rounded-md shadow-md bg-gray-800 my-10 ">
@@ -133,11 +151,12 @@ const Informations = () => {
                 name="country"
                 value={country}
                 onChange={onChange}
-                >
-                  <option>Surabaya</option>
-                  <option>Jakarta</option>
-                  <option>Tangerang</option>
-                  <option>Bandung</option>
+                > 
+                <option selected disabled>select a country</option>
+                {countries.map((country)=>(
+                  <option>{country}</option>
+                ))}
+                  
                 </select>
               </div>
               <div>
@@ -151,10 +170,10 @@ const Informations = () => {
                 name="city"
                 value={city}
                 onChange={onChange}>
-                  <option>Surabaya</option>
-                  <option>Jakarta</option>
-                  <option>Tangerang</option>
-                  <option>Bandung</option>
+                  <option selected disabled>select a city</option>
+                  {Cities.map((city)=>(
+                  <option>{city.name}</option>
+                ))}
                 </select>
               </div>
               <div>
@@ -213,9 +232,8 @@ const Informations = () => {
                         <span class="">Upload a file</span>
                         <input
                           id="file-upload"
-                          name="image"
-                          value={image}
-                          onChange={onChange}
+                          name="file"
+                          onChange={onChangeimg}
                           type="file"
                           class="sr-only"
                         />
