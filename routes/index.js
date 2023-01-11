@@ -31,4 +31,4 @@ router.put("/data/:id", dataCtrl.apiUpdatedata);
 router.delete("/data/:id", dataCtrl.apiDeletedata); 
 router.post("/data/upload", dataCtrl.uploadimage);  
 
-module.exports = router;
+module.exports = router; 

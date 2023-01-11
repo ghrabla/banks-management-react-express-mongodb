@@ -68,9 +68,16 @@ const Informations = () => {
       image: filename,
       id_client: clientid,
     }
-  const res = await axios.post("http://localhost:5050/data/create",clientInfo)
-  uploadeimage()
-  toast.success("your data saved succesfully") 
+    function isObjectEmpty(obj) {
+      return Object.values(obj).every( val => val)
+  }
+  if(isObjectEmpty(clientInfo)) {
+    const res = await axios.post("http://localhost:5050/data/create",clientInfo)
+    uploadeimage()
+    toast.success("your data saved succesfully")
+  }else{
+    toast.error("please fill all the feilds")
+  }
 
   }
   
