@@ -1,18 +1,28 @@
 const dataService = require("../services/data");
 const AppError = require("../helpers/appError");
 const multer = require('multer');
-const upload = multer({ dest: './client/public' });
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './client/public');
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
 module.exports = class data {
   static async uploadimage(req, res) { 
-    // console.log(req.file);
+   
     upload.single('file')(req, res, (err) => {
+      const uploadedFile = req.file;
       if (err) {
         // An error occurred when uploading
         return res.status(400).json({error: err.message});
       }
       // Do something with the file
       // ...
-      res.status(200).json({message: 'File uploaded successfully.'});
+      res.status(200).json({file: uploadedFile.filename });
     });
   }
 

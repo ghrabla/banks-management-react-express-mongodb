@@ -41,7 +41,6 @@ const Informations = () => {
   const onChangeimg = e => {
     setFile(e.target.files[0]);
     setFilename(e.target.files[0].name);
-    setTimeout(uploadeimage(),1000)
     };
 
   const uploadeimage = async ()=>{
@@ -70,6 +69,7 @@ const Informations = () => {
       id_client: clientid,
     }
   const res = await axios.post("http://localhost:5050/data/create",clientInfo)
+  uploadeimage()
   toast.success("your data saved succesfully") 
 
   }
