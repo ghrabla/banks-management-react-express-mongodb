@@ -21,7 +21,7 @@ router.post("/client/login", clientCtrl.apiCheckclient);
 router.post("/client/register",clientCtrl.apiCreateclient);
 router.get("/client/:id", clientCtrl.apiGetclientById);
 router.put("/client/:id", clientCtrl.apiUpdateclient);
-router.delete("/client/:id", clientCtrl.apiDeleteclient); 
+router.delete("/client/:id", clientCtrl.apiDeleteclient);  
 
 // data routes
 router.get("/data",dataCtrl.apiGetAlldata);

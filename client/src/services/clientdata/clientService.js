@@ -39,7 +39,7 @@ const deleteclient = async (clientId) => {
   //   },
   // }
   
-    axios.delete(API_URL+'client/'+clientId)
+    axios.delete(API_URL+'data/'+clientId)
     
   
 }

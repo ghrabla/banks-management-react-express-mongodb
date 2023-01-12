@@ -1,20 +1,46 @@
 import { useEffect,useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getclients } from "../services/clientdata/clientSlice";
-
-
+import { deleteclient, getclients } from "../services/clientdata/clientSlice";
+import Swal from "sweetalert2";
 
 
 const Users = ()=>{
-// const [clients,setClients] = useState([]);
+const [action,setaction] = useState(false);
 const navigate = useNavigate();
 const dispatch = useDispatch();
 const {clients} = useSelector((state)=> state.clients)
+const {admin} = useSelector((state)=> state.authadmin)
 
 useEffect(()=>{
-  dispatch(getclients())
+  if(!admin){
+   navigate("/")
+  }else{
+    dispatch(getclients())
+  }
+  
 },[])
+
+const showaction = (num) =>{
+  setaction(num)
+}
+
+const Deleteone = (id) =>{
+  Swal.fire({
+    title: "Are you sure ?",
+    text: "You are going to delete this trip",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "black", 
+    cancelButtonColor: "#d33", 
+    confirmButtonText: "Yes",
+    cancelButtonText: "Cancel",
+  }).then((result)=>{
+    if(result.value){
+      dispatch(deleteclient(id))
+  }
+  })
+}
 
 return(
 <div class="container mx-auto px-4 sm:px-8">
@@ -42,7 +68,7 @@ return(
               <th
                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
               >
-                Issued / Due
+                Member from
               </th>
               <th
                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
@@ -79,7 +105,7 @@ return(
                <p class="text-gray-600 whitespace-no-wrap">USD</p>
              </td>
              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-               <p class="text-gray-900 whitespace-no-wrap">Sept 28, 2019</p>
+               <p class="text-gray-900 whitespace-no-wrap font-bold">{one.id_client[0].createdAt.slice(0,10)}</p>
                <p class="text-gray-600 whitespace-no-wrap">Due in 3 days</p>
              </td>
              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -90,13 +116,15 @@ return(
                    aria-hidden
                    class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
                  ></span>
-                 <span class="relative">Paid</span>
+                 <span class="relative">Active</span>
                </span>
              </td>
              <td
                class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right"
              >
+               <div className={action===one ? "hidden" : "block"}>
                <button
+               onClick={() => showaction(one)}
                  type="button"
                  class="inline-block text-gray-500 hover:text-gray-700"
                >
@@ -109,7 +137,17 @@ return(
                    />
                  </svg>
                </button>
+               </div>
+               <div className={action===one ? "block" : "hidden"}>
+                            <button onClick={showaction} class="font-bold text-xl" ><i class="fa-solid fa-xmark"></i></button>
+                </div>
              </td>
+             <div className={action===one ? "block" : "hidden"}>
+                          <div class="flex flex-col gap-3" >
+                      <button  class="text-green-500 font-bold"><i class="fas fa-edit" ></i>Update</button>
+                      <button class="text-red-500 font-bold" onClick={() => Deleteone(one._id)}><i class="fa fa-trash" aria-hidden="true"></i>Delete</button>
+                  </div> 
+             </div>
            </tr>
            ))}
           </tbody>
