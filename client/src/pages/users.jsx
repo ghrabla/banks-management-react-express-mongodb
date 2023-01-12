@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import Updateform from "../components/update";
 
 const Users = ()=>{
+const [show,setShow] = useState(false)
 const [action,setaction] = useState(false);
 const navigate = useNavigate();
 const dispatch = useDispatch();
@@ -41,10 +42,12 @@ const Deleteone = (id) =>{
   }
   })
 }
-
+const showfun = ()=>{
+  setShow(!show)
+}
 return(
 <div class="container mx-auto px-4 sm:px-8">
-  <Updateform/>
+  <Updateform show={show} showfun={showfun}/>
   <div class="py-8">
     <div>
       <h2 class="text-2xl font-semibold leading-tight">Clients dashboard</h2>
@@ -145,7 +148,7 @@ return(
              </td>
              <div className={action===one ? "block" : "hidden"}>
                           <div class="flex flex-col gap-3" >
-                      <button  class="text-green-500 font-bold"><i class="fas fa-edit" ></i>Update</button>
+                      <button  class="text-green-500 font-bold" onClick={showfun}><i class="fas fa-edit" ></i>Update</button>
                       <button class="text-red-500 font-bold" onClick={() => Deleteone(one._id)}><i class="fa fa-trash" aria-hidden="true"></i>Delete</button>
                   </div> 
              </div>

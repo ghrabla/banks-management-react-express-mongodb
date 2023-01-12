@@ -5,7 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from "react-redux";
 import countryList from 'country-list';
 import { cities } from "list-of-moroccan-cities";
-const Updateform = () => {
+const Updateform = ({show,showfun}) => {
+  
   const [countries,setCountries] = useState(countryList.getNames())
   const [Cities,setCities] = useState(cities)
   const [file, setFile] = useState('');
@@ -82,13 +83,13 @@ const Updateform = () => {
   }
   
     return (
-      <div>
-        <section class="absolute ml-28 max-w-4xl p-6 mx-auto rounded-md shadow-md bg-gray-800 my-10 z-50">
+      <div className={show ? "block" : "hidden"}>
+        <section class="absolute ml-36 max-w-4xl p-6 mx-auto rounded-md shadow-md bg-gray-800 my-10 z-50">
           <div className="flex justify-between">
           <h1 class="text-xl font-bold text-white capitalize dark:text-white">
             Account Update
           </h1>
-           <span className="text-white font-bold cursor-pointer" ><i class="fa-solid fa-x"></i></span>
+           <span className="text-white font-bold cursor-pointer" onClick={showfun}><i class="fa-solid fa-x"></i></span>
           </div>
           <form onSubmit={onSubmit}>
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
