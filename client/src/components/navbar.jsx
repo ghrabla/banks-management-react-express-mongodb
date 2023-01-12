@@ -10,7 +10,7 @@ const Navbar = ()=>{
 
   const onLogout = () => {
     dispatch(logout())
-    navigate('/')
+    navigate('/login')
   }
 
     return(

@@ -3,7 +3,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteclient, getclients } from "../services/clientdata/clientSlice";
 import Swal from "sweetalert2";
-
+import Updateform from "../components/update";
 
 const Users = ()=>{
 const [action,setaction] = useState(false);
@@ -44,6 +44,7 @@ const Deleteone = (id) =>{
 
 return(
 <div class="container mx-auto px-4 sm:px-8">
+  <Updateform/>
   <div class="py-8">
     <div>
       <h2 class="text-2xl font-semibold leading-tight">Clients dashboard</h2>
