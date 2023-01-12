@@ -10,6 +10,7 @@ import Users from './pages/users'
 import Account from './pages/account'
 import Loginadmin from './pages/loginadmin'
 import Informations from './pages/informations';
+import ErrorPage from './pages/error';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path='account' element={<Account/>}/>
       <Route path='informations' element={<Informations/>}/>
       <Route path='admin/login' element={<Loginadmin/>}/>
+      <Route path='*' element={<ErrorPage/>} />
       </Routes>
       <ToastContainer/>
       <Footer/>

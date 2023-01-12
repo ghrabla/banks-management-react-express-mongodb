@@ -11,6 +11,45 @@ const initialState = {
 }
 
 
+// Get user clients
+export const getclients = createAsyncThunk(
+  'clients/getAll',
+  async (_, thunkAPI) => {
+    try {
+      // const token = thunkAPI.getState().auth.user.token
+      return await clientService.getclients()
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+
+// Get user clients
+export const getoneclient = createAsyncThunk(
+  'clients/getone',
+  async (id_client) => {
+    try {
+      // const token = thunkAPI.getState().auth.user.token
+      return await clientService.getoneclient(id_client)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+    }
+  }
+)
+
+
 export const updateclient = createAsyncThunk(
   'clients/update',
   async (id_client,clientData,{ dispatch, getState }) => {
@@ -32,41 +71,6 @@ export const updateclient = createAsyncThunk(
   }
 )
 
-// Get user clients
-export const getclients = createAsyncThunk(
-  'clients/getAll',
-  async (_, thunkAPI) => {
-    try {
-      // const token = thunkAPI.getState().auth.user.token
-      return await clientService.getclients()
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
-    }
-  }
-)
-// Get user clients
-export const getoneclient = createAsyncThunk(
-  'clients/getone',
-  async (id_client) => {
-    try {
-      // const token = thunkAPI.getState().auth.user.token
-      return await clientService.getoneclient(id_client)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-    }
-  }
-)
 
 // Delete user client
 export const deleteclient = createAsyncThunk(
