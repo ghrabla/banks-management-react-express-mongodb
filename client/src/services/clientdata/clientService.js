@@ -10,7 +10,7 @@ const getclients = async (token) => {
             Authorization: `Bearer ${token}`,
         },
     }
-    const response = await axios.get(API_URL+'client')
+    const response = await axios.get(API_URL+'data') 
     return response.data
 }
 
