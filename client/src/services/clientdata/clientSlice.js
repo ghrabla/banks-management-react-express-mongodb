@@ -52,12 +52,12 @@ export const getoneclient = createAsyncThunk(
 
 export const updateclient = createAsyncThunk(
   'clients/update',
-  async (id_client,clientData,{ dispatch, getState }) => {
+  async (clientdata,{ dispatch, getState }) => {
     try { 
       // const token = thunkAPI.getState().auth.user.token
       
-      const res = await clientService.updateclient(id_client,clientData)
-      dispatch(getclients())
+      const res = await clientService.updateclient(clientdata.dataid,clientdata.clientInfo)
+      // dispatch(getclients())
       return res;
     } catch (error) {
       const message =
@@ -78,7 +78,6 @@ export const deleteclient = createAsyncThunk(
   async (id,{ dispatch, getState }) => {
     try {
       // const token = thunkAPI.getState().auth.user.token
-     
     const res = await clientService.deleteclient(id)
     dispatch(getclients());
     return res;
@@ -112,6 +111,19 @@ export const clientSlice = createSlice({
         state.clients = action.payload
       })
       .addCase(getclients.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(updateclient.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(updateclient.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.clients = action.payload
+      })
+      .addCase(updateclient.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

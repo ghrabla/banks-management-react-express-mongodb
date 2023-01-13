@@ -42,8 +42,10 @@ const Deleteone = (id) =>{
   }
   })
 }
-const showfun = ()=>{
+const showfun = (clientid,dataid)=>{
   setShow(!show)
+  localStorage.setItem("updatedata",JSON.stringify({clientid:clientid,dataid:dataid}))
+
 }
 return(
 <div class="container mx-auto px-4 sm:px-8">
@@ -85,7 +87,7 @@ return(
             </tr>
           </thead>
           <tbody>
-           {clients.map((one)=>(
+           {clients?.map((one)=>(
              <tr>
              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                <div class="flex">
@@ -148,7 +150,7 @@ return(
              </td>
              <div className={action===one ? "block" : "hidden"}>
                           <div class="flex flex-col gap-3" >
-                      <button  class="text-green-500 font-bold" onClick={showfun}><i class="fas fa-edit" ></i>Update</button>
+                      <button  class="text-green-500 font-bold" onClick={()=>showfun(one.id_client[0]._id,one._id)}><i class="fas fa-edit" ></i>Update</button>
                       <button class="text-red-500 font-bold" onClick={() => Deleteone(one._id)}><i class="fa fa-trash" aria-hidden="true"></i>Delete</button>
                   </div> 
              </div>

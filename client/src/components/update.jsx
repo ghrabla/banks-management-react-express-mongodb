@@ -2,16 +2,17 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import countryList from 'country-list';
 import { cities } from "list-of-moroccan-cities";
+import { getclients, updateclient } from "../services/clientdata/clientSlice";
+import clientService from "../services/clientdata/clientService";
 const Updateform = ({show,showfun}) => {
-  
+  const dispatch = useDispatch();
   const [countries,setCountries] = useState(countryList.getNames())
   const [Cities,setCities] = useState(cities)
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose file');
-  const clientid = useSelector((state)=>state.authclient.client.client._id)
   const [formData, setFormData] = useState({
     cin: "",
     phone: "",
@@ -57,6 +58,8 @@ const Updateform = ({show,showfun}) => {
 
   const onSubmit = async (e)=>{
     e.preventDefault()
+    const clientid = JSON.parse(localStorage.getItem("updatedata")).clientid
+    const dataid = JSON.parse(localStorage.getItem("updatedata")).dataid
     const clientInfo = {
       cin,
       phone,
@@ -72,10 +75,11 @@ const Updateform = ({show,showfun}) => {
     function isObjectEmpty(obj) {
       return Object.values(obj).every( val => val)
   }
-  if(isObjectEmpty(clientInfo)) {
-    const res = await axios.post("http://localhost:5050/data/create",clientInfo)
+  if(isObjectEmpty(clientInfo)){
+    // clientService.updateclient(dataid,clientInfo)
+    dispatch(updateclient({dataid,clientInfo}))
     uploadeimage()
-    toast.success("your data saved succesfully")
+    toast.success("your data updated succesfully")
   }else{
     toast.error("please fill all the feilds")
   }

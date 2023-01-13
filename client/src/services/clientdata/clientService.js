@@ -17,11 +17,11 @@ const getclients = async (token) => {
 // update client 
 const updateclient = async (id_client,clientData) => {
  if(clientData){
-  const response = await axios.put(API_URL+'client/'+id_client, clientData)
+  const response = await axios.put(API_URL+'data/'+id_client, clientData)
   Swal.fire('Updated!', '', 'success')
   return response.data
  }else{
-  Swal.fire( 'of course there is a problem !', 'warning')
+  Swal.fire( 'there is a problem !', 'warning')
  }
 }
 
