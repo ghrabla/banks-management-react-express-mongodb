@@ -49,6 +49,16 @@ module.exports = class data {
     }
   }
 
+  static async apiGetdataByIdClient(req, res, next) {
+    try {
+      let id = req.params.id || {};
+      const data = await dataService.GetdataByIdClient(id);
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  }
+
   static async apiCreatedata(req, res, next) {
     try {
       if (!req.body) return next(new AppError("No form data found", 404));

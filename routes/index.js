@@ -30,5 +30,6 @@ router.get("/data/:id", dataCtrl.apiGetdataById);
 router.put("/data/:id", dataCtrl.apiUpdatedata);
 router.delete("/data/:id", dataCtrl.apiDeletedata); 
 router.post("/data/upload", dataCtrl.uploadimage);  
+router.get("/data/client/:id", dataCtrl.apiGetdataByIdClient);  
 
 module.exports = router; 

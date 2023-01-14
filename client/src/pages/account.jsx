@@ -1,17 +1,29 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import html2pdf from "html2pdf.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getclients } from "../services/clientdata/clientSlice";
+import axios from "axios";
+
 
 const Account = () => {
-
+  const year = new Date().getFullYear();
   const componentRef = useRef(null);
-
-
   const handleDownload = () => {
     const element = componentRef.current;
-    html2pdf()
-        .from(element)
-        .save("account.pdf");
-};
+    html2pdf().from(element).save("account.pdf");
+  };
+  const dispatch = useDispatch()
+  const {client} = useSelector((state)=>state.authclient)
+  const [data,setData] = useState([])
+  const [clientdata,setclientData] = useState([])
+  useEffect(()=>{
+  const getdatabyid = async (id)=>{
+    const res = await axios.get("http://localhost:5050/data/client/"+id)
+    setData(res.data) 
+    setclientData(res.data.id_client[0])
+  }
+  getdatabyid(client.client._id)
+  },[])
 
   return (
     <div>
@@ -20,19 +32,19 @@ const Account = () => {
           <div class="grid grid-cols-1 md:grid-cols-3">           
             <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">             
               <div>
-                <p class="font-bold text-gray-700 text-xl">22</p>
-                <p class="text-gray-400">Friends</p>
+                <p class="font-bold text-gray-700 text-xl">{data.postal}</p>
+                <p class="text-gray-400">Postal</p>
               </div>
               <div>              
-                <p class="font-bold text-gray-700 text-xl">10</p>
-                <p class="text-gray-400">Photos</p>
+                <p class="font-bold text-gray-700 text-xl">{data.phone}</p>
+                <p class="text-gray-400">Phone</p>
               </div>
               <div>        
-                <p class="font-bold text-gray-700 text-xl">89</p>
-                <p class="text-gray-400">Comments</p>
+                <p class="font-bold text-gray-700 text-xl">{data.solde}</p>
+                <p class="text-gray-400">Solde $</p>
               </div>
             </div>
-            <div class="relative">       
+            <div class="relative">        
               <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -63,13 +75,13 @@ const Account = () => {
           <div class="mt-20 text-center border-b pb-12">
             
             <h1 class="text-4xl font-medium text-gray-700">
-              Jessica Jones, <span class="font-light text-gray-500">27</span>
+              {clientdata.fullname}, <span class="font-light text-gray-500">{data.born_date}</span>
             </h1>
-            <p class="font-light text-gray-600 mt-3">Bucharest, Romania</p>
-            <p class="mt-8 text-gray-500">
-              Solution Manager - Creative Tim Officer
+            <p class="font-light text-gray-600 mt-3">{data.city}, {data.country}</p> 
+            <p class="mt-8 text-gray-500 font-bold">
+              {clientdata.email}
             </p>
-            <p class="mt-2 text-gray-500">University of Computer Science</p>
+            <p class="mt-2 text-gray-500">{data.adresse}</p> 
           </div>
           <div class="mt-12 flex flex-col justify-center">
             

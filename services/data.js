@@ -40,6 +40,15 @@ module.exports = class dataService{
         }
     }
 
+    static async GetdataByIdClient(dataId){
+        try {
+            const singledataResponse =  await data.find({id_client: dataId}).populate("id_client");
+            return singledataResponse[0];
+        } catch (error) {
+            console.log(`data not found. ${error}`)
+        }
+    }
+
     static async updatedata(id,datas){
             try {
                 const newdata = {
