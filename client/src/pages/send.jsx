@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Send = ()=>{
     const navigate = useNavigate();
@@ -10,7 +12,7 @@ const Send = ()=>{
         email: "",
         solde: "",
       });
-    
+      const {client} = useSelector((state)=>state.authclient)
       const { fullname, email, solde } = formData;
 
       const onChange = (e) => {
@@ -20,16 +22,19 @@ const Send = ()=>{
         }));
       };
     
-      const onSubmit = (e) => {
+      const onSubmit = async (e) => {
         e.preventDefault();
         if (solde.trim() == "" || fullname.trim() == "" || email.trim() == "" ) {
           toast.error("please all the feilds are required");
         } else {
           const clientData = {
+            id:client.client._id,
             fullname,
             email,
             solde,
           };
+          const res = await axios.post("http://localhost:5050/client/check",clientData)
+          console.log(res.data);
         }
       };
 
