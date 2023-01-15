@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
 module.exports = class clientService{
+    
     static async getAllclients(){
         try {
             const allclients = await client.find(); 
@@ -31,6 +32,16 @@ module.exports = class clientService{
     static async clientlogin(data){
         try {  
             const checkclient =  await client.find({email: data.email});
+            return checkclient;
+        } catch (error) {
+            console.log(`client not found. ${error}`)
+        }
+    }
+
+
+    static async clientcheck(data){
+        try {  
+            const checkclient =  await client.find({email: data.email,fullname:data.fullname});
             return checkclient;
         } catch (error) {
             console.log(`client not found. ${error}`)

@@ -1,7 +1,8 @@
 const clientService = require("../services/client");
 const AppError = require("../helpers/appError");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const client = require("../models/client");
+const datamodel = require("../models/data");
 module.exports = class client {
   static async apiGetAllclients(req, res, next) {
     try {
@@ -24,6 +25,7 @@ module.exports = class client {
       res.status(500).json({ error: error });
     }
   }
+
   static async apiCheckclient(req, res, next) { 
     try { 
       const client = await clientService.clientlogin(req.body);
@@ -39,6 +41,24 @@ module.exports = class client {
       //  res.json();
     } catch (error) {
       res.status(500).json({ error: "invalid email" });
+    }
+  }
+
+  static async apiExistclient(req, res, next) { 
+    try { 
+      const client = await clientService.clientcheck(req.body);
+      if(client.length != 0){
+        const id = client[0]._id
+        const data = await datamodel.find({id_client: id})
+        const updated = await datamodel.findByIdAndUpdate({_id: data[0]._id},{solde: req.body.solde*1 + data[0].solde*1})
+        const data2 = await datamodel.find({id_client: req.body.id})
+        const updated2 = await datamodel.findByIdAndUpdate({_id: data2[0]._id},{solde: data2[0].solde*1 - req.body.solde*1})
+        res.status(200).json({message: "updated"})
+      }else{
+        res.status(200).json({message: "not exist"})
+      }
+    } catch (error) {
+      res.status(500).json({ error: "something went wrong" });
     }
   }
 
@@ -58,10 +78,7 @@ module.exports = class client {
 
   static async apiUpdateclient(req, res, next) {
     try {
-     
-
       const updatedclient = await clientService.updateclient(req.params.id,req.body.fullname,req.body.email,req.body.password);
-
       if (updatedclient.modifiedCount === 0) {
         throw new Error("Unable to update client, error occord");
       }
