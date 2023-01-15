@@ -34,7 +34,12 @@ const Send = ()=>{
             solde,
           };
           const res = await axios.post("http://localhost:5050/client/check",clientData)
-          console.log(res.data);
+          if(res.data.message === "updated"){
+            navigate("/account")
+            toast.success("your transaction well done, thank you")
+          }else{
+            toast.error(res.data.message)
+          }
         }
       };
 

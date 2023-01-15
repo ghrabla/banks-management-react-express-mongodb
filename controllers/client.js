@@ -59,7 +59,7 @@ module.exports = class client {
           res.status(200).json({message: "you don't have much money"})
         }
       }else{
-        res.status(200).json({message: "not exist"})
+        res.status(200).json({message: "this client does not exist"})
       }
     } catch (error) {
       res.status(500).json({ error: "something went wrong" });
