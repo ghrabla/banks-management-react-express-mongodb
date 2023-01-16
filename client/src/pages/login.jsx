@@ -27,7 +27,7 @@ const Login = () => {
       notify();
     }
     if (isSuccess) {
-      navigate("/informations");
+      navigate("/account");
       const notify = () => toast.success("your login is correct!");
       notify();
     }

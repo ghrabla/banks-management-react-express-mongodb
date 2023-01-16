@@ -57,7 +57,9 @@ const Navbar = () => {
                 Home
               </a>
             </Link>
-            <Link to="/account">
+            {client ? (
+              <>
+                <Link to="/account">
               <a
                 href="javascript:void(0)"
                 class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
@@ -65,7 +67,6 @@ const Navbar = () => {
                 Account
               </a>
             </Link>
-            {client ? (
               <a
                 onClick={onLogout}
                 href="javascript:void(0)"
@@ -73,6 +74,7 @@ const Navbar = () => {
               >
                 logout
               </a>
+              </>
             ) : (
               <>
                 <Link to="/register">

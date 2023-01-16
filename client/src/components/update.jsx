@@ -1,20 +1,20 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, useDispatch } from "react-redux";
 import countryList from 'country-list';
 import { cities } from "list-of-moroccan-cities";
 import { getclients, updateclient } from "../services/clientdata/clientSlice";
-import clientService from "../services/clientdata/clientService";
-const Updateform = ({show,showfun}) => {
-  const dispatch = useDispatch();
+const Updateform = ({dataidp,clientidp,show,showfun}) => { 
+  // console.log(dataidp,"hh"); 
+  const dispatch = useDispatch(); 
   const [countries,setCountries] = useState(countryList.getNames())
   const [Cities,setCities] = useState(cities)
-  const [file, setFile] = useState('');
-  const [filename, setFilename] = useState('Choose file');
+  const [file, setFile] = useState('');   
+  const [filename, setFilename] = useState('Choose file');   
   const [formData, setFormData] = useState({
-    cin: "",
+    cin: "",    
     phone: "",
     country: "",
     city: "",
@@ -23,7 +23,14 @@ const Updateform = ({show,showfun}) => {
     solde: "",
     born_date: ""
   });
-  const { cin,
+  useEffect(()=>{
+    const getone = async ()=>{ 
+      const res = await axios.get("http://localhost:5050/data/"+dataidp)
+      setFormData(res.data)
+    }
+    getone();
+  },[clientidp,dataidp])  
+  const { cin, 
   phone,
   country,
   city,
@@ -48,7 +55,6 @@ const Updateform = ({show,showfun}) => {
   const uploadeimage = async ()=>{
     const formData = new FormData();
     formData.append('file', file);
-
       const res = await axios.post('http://localhost:5050/data/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -57,9 +63,7 @@ const Updateform = ({show,showfun}) => {
   }
 
   const onSubmit = async (e)=>{
-    e.preventDefault()
-    const clientid = JSON.parse(localStorage.getItem("updatedata")).clientid
-    const dataid = JSON.parse(localStorage.getItem("updatedata")).dataid
+    // e.preventDefault()
     const clientInfo = {
       cin,
       phone,
@@ -70,14 +74,14 @@ const Updateform = ({show,showfun}) => {
       solde,
       born_date,
       image: filename,
-      id_client: clientid,
+      id_client: clientidp,
     }
-    function isObjectEmpty(obj) {
+    function isObjectEmpty(obj) { 
       return Object.values(obj).every( val => val)
   }
   if(isObjectEmpty(clientInfo)){
     // clientService.updateclient(dataid,clientInfo)
-    dispatch(updateclient({dataid,clientInfo}))
+    dispatch(updateclient({dataidp,clientInfo}))
     uploadeimage()
     toast.success("your data updated succesfully")
   }else{
@@ -100,7 +104,7 @@ const Updateform = ({show,showfun}) => {
               <div>
                 <label class="text-white dark:text-gray-200" for="CIN">
                   CIN
-                </label>
+                </label> 
                 <input
                   id="CIN"
                   name="cin"

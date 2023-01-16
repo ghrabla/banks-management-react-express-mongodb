@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { deleteclient, getclients } from "../services/clientdata/clientSlice";
 import Swal from "sweetalert2";
 import Updateform from "../components/update";
+import axios from "axios";
 
 const Users = ()=>{
 const [show,setShow] = useState(false)
-const [action,setaction] = useState(false);
-const navigate = useNavigate();
-const dispatch = useDispatch();
+const [updatedata,setupdatedata] = useState([])
+const [action,setaction] = useState(false)
+const [dataidp,setdataidp] = useState([])
+const [clientidp,setclientidp] = useState([])
+const navigate = useNavigate()
+const dispatch = useDispatch()
 const {clients} = useSelector((state)=> state.clients)
 const {admin} = useSelector((state)=> state.authadmin)
 
@@ -42,14 +46,14 @@ const Deleteone = (id) =>{
   }
   })
 }
-const showfun = (clientid,dataid)=>{
+const showfun = (clientid,dataid)=>{  
   setShow(!show)
-  localStorage.setItem("updatedata",JSON.stringify({clientid:clientid,dataid:dataid}))
-
+  setclientidp(clientid)
+  setdataidp(dataid)
 }
 return(
 <div class="container mx-auto px-4 sm:px-8">
-  <Updateform show={show} showfun={showfun}/>
+  <Updateform clientidp={clientidp} dataidp={dataidp} show={show} showfun={showfun} />
   <div class="py-8">
     <div>
       <h2 class="text-2xl font-semibold leading-tight">Clients dashboard</h2>
@@ -87,7 +91,7 @@ return(
             </tr>
           </thead>
           <tbody>
-           {clients?.map((one)=>(
+           {clients?.map((one,index)=>(
              <tr>
              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                <div class="flex">
@@ -102,7 +106,7 @@ return(
                    <p class="text-gray-900 whitespace-no-wrap">
                      {one.id_client[0].fullname}
                    </p>
-                   <p class="text-gray-600 whitespace-no-wrap">000004</p>
+                   <p class="text-gray-600 whitespace-no-wrap">000{index+1}</p>
                  </div>
                </div>
              </td>

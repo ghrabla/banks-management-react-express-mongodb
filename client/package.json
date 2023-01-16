@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest",
+    "testwatch": "jest --watchAll"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
@@ -23,13 +25,14 @@
     "sweetalert2": "^11.7.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^13.4.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.13",
+    "jest": "^29.3.1",
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4",
     "vite": "^4.0.0"
-  },
-  "proxy": "http://localhost:5050"
+  }
 }

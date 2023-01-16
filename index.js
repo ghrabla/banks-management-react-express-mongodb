@@ -7,7 +7,7 @@ const errorHandler = require("./helpers/errorHandler");
 const cors = require("cors"); 
 const router = require("./routes");
 const bodyParser =  require("body-parser");
-const app = express();  
+const app = express();    
 const port = process.env.port;   
 
 
