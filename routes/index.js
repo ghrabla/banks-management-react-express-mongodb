@@ -12,8 +12,8 @@ router.get("/admins",adminCtrl.apiGetAlladmins);
 router.post("/admin/login", adminCtrl.apiCheckadmin);
 router.post("/admin/register",adminCtrl.apiCreateadmin);
 router.get("/admin/:id", adminCtrl.apiGetadminById);
-router.put("/admin/:id", adminCtrl.apiUpdateadmin);
-router.delete("/admin/:id", adminCtrl.apiDeleteadmin); 
+router.put("/admin/:id", adminCtrl.apiUpdateadmin); 
+router.delete("/admin/:id", protectadmin,adminCtrl.apiDeleteadmin); 
 
 // client routes
 router.get("/clients",clientCtrl.apiGetAllclients);

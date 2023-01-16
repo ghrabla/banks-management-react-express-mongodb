@@ -76,7 +76,7 @@ module.exports = class admin {
     try {
       const adminId = req.params.id;
       const deleteResponse = await adminService.deleteadmin(adminId);
-      res.json(deleteResponse);
+      res.json({message: "deleted"});
     } catch (error) {
       res.status(500).json({ error: error });
     }

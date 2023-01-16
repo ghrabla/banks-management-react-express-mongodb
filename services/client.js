@@ -80,7 +80,7 @@ module.exports = class clientService{
     // Generate JWT
     static async generateToken(id){
         return jwt.sign({ id }, process.env.SECRETCLIENT, {
-          expiresIn: '10d',
+          expiresIn: '1d',
         })
       }
     
