@@ -1,6 +1,7 @@
 const clientService = require("../services/client");
 const AppError = require("../helpers/appError");
 const bcrypt = require("bcrypt");
+const transactionService = require("../services/transaction");
 const client = require("../models/client");
 const datamodel = require("../models/data");
 module.exports = class client {
@@ -47,6 +48,7 @@ module.exports = class client {
   static async apiExistclient(req, res, next) { 
     try { 
       const client = await clientService.clientcheck(req.body);
+      const sender = await clientService.getclientbyId(req.body.id)
       if(client.length != 0){
         const id = client[0]._id
         const data2 = await datamodel.find({id_client: req.body.id})
@@ -54,6 +56,14 @@ module.exports = class client {
           const data = await datamodel.find({id_client: id})
           const updated = await datamodel.findByIdAndUpdate({_id: data[0]._id},{solde: req.body.solde*1 + data[0].solde*1})
           const updated2 = await datamodel.findByIdAndUpdate({_id: data2[0]._id},{solde: data2[0].solde*1 - req.body.solde*1})
+          const newtransaction = {
+            sender: sender.fullname,
+            resaver: client[0].fullname,
+            amount: req.body.solde,
+            id_sender: req.body.id,
+            id_resaver: id
+           }
+          const transaction = await transactionService.createTransaction(newtransaction)
           res.status(200).json({message: "updated"})
         }else{
           res.status(200).json({message: "you don't have much money"})
