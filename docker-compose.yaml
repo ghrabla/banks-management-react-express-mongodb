@@ -1,0 +1,33 @@
+version : "3.8"
+services :
+  mongo_db:
+    container_name: mongo_db
+    image: mongo:latest
+    volumes:
+      - mongo_db:/data/db
+    ports:
+      - 27018:27017
+  server :
+    build: ./server
+    container_name: server_c
+    ports:
+      - '4000:3000'
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://mongo_db:27017
+      DB_NAME: bank
+    volumes:
+      - ./server:/app
+    depends_on:
+      - mongo_db    
+  client :
+    build: ./client
+    container_name: client_c
+    ports:
+     - '3000:3000'
+    stdin_open: true
+    tty: true
+
+
+volumes:
+  mongo_db:

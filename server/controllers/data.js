@@ -2,15 +2,15 @@ const dataService = require("../services/data");
 const AppError = require("../helpers/appError");
 const multer = require('multer');
 const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './client/public');
-    },
     filename: function (req, file, callback) {
-        callback(null, file.originalname);
+      callback(null, file.originalname);
+    },
+    destination: function (req, file, callback) {
+        callback(null, '../client/public');
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage });  
 module.exports = class data {
   static async uploadimage(req, res) { 
    
