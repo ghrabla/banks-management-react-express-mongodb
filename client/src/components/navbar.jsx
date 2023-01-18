@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../services/authclient/authSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [show, setshow] = useState(false);
@@ -16,7 +16,7 @@ const Navbar = () => {
   const showfun = () => {
     setshow(!show);
   };
-
+  
   return (
     <div>
       <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-6">
@@ -72,7 +72,7 @@ const Navbar = () => {
                 href="javascript:void(0)"
                 class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
               >
-                logout
+                Logout
               </a>
               </>
             ) : (
